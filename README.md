@@ -20,8 +20,9 @@ The next required step is to add the service provider to config/app.php :
     Codeheures\LaravelGeoUtils\LaravelGeoUtilsServiceProvider::class,
 ```
  
-Congratulations, you have successfully installed Scafold !
+Congratulations, you have successfully installed LaravelGeoUtils !
 
 Use:
-
+```
 http://yourproject/geoByIp
+```
