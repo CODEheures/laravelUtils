@@ -6,7 +6,7 @@ Add LaravelGeoUtils to your composer.json file to require LaravelGeoUtils :
 ```
     require : {
         "laravel/framework": "5.4.*",
-        "codeheures/laravelGeoUtils": "dev-master"
+        "codeheures/laravel-geo-utils": "dev-master"
     }
 ```
  
