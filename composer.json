@@ -1,0 +1,22 @@
+{
+  "name": "codeheures/laravelGeoUtils",
+  "description": "Geo Utility for Laravel 5.4",
+  "homepage": "http://github.com/codeheures/scafold",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Sylvain Gagnot",
+      "email": "webmaster@codeheures.fr"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "illuminate/support": "~5.4",
+    "geoip2/geoip2": "~2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Codeheures\\LaravelGeoUtils\\": "src/"
+    }
+  }
+}
