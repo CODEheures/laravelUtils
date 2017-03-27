@@ -1,5 +1,15 @@
 ## LaravelGeoUtils ## 
  
+### Example Use ###
+```
+    http://yourproject/geoUtils/geoByIp/82.246.117.210
+```
+### Result is JSON ###
+```json
+    {"ip":"82.246.117.210","city":"Joué-lès-Tours","region":"Centre","country":"FR","loc":"47.3522,0.6691","postal":"37300"}
+```
+ 
+ 
 ### Installation ###
  
 Add LaravelGeoUtils to your composer.json file to require LaravelGeoUtils :
@@ -19,19 +29,11 @@ The next required step is to add the service provider to config/app.php :
 ```
     Codeheures\LaravelGeoUtils\LaravelGeoUtilsServiceProvider::class,
 ```
-### Before first use we update maxmind db###
+### Before first use we update maxmind db ###
 ```
-http://yourproject/geoUtils/refreshDb
+    http://yourproject/geoUtils/refreshDb
 ``` 
 Congratulations, you have successfully installed LaravelGeoUtils !
-
-### Use ###
-```
-/*
-* where 82.246.xxx.xxx is a valid IP
-*/
-http://yourproject/geoUtils/geoByIp/82.246.xxx.xxx
-```
 
 ### Copyright and Licence ###
 
