@@ -22,6 +22,11 @@ class LaravelGeoUtilsServiceProvider extends ServiceProvider
         {
             require __DIR__.'/routes/web.php';
         });
+
+        // Config
+        $this->publishes([
+            __DIR__.'/config' => base_path('config')
+        ]);
     }
 
     /**

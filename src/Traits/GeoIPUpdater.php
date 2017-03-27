@@ -5,9 +5,6 @@ namespace Codeheures\LaravelGeoUtils\Traits;
 
 trait GeoIPUpdater
 {
-    static $geodblink = "http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz";
-    static $geodbmd5link = "http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.md5";
-
     /**
      *
      * Update GEOLITE2 MMDB DATABASE file from maxmind.com
@@ -32,8 +29,8 @@ trait GeoIPUpdater
     public static function updateGeoIpFiles() {
         //GET DB & MD5 FILES
         set_time_limit(180);
-        $database_gz_filePath = self::getHTTPFile(self::$geodblink, __DIR__ . '/../maxmind-db/');
-        $md5_filePath = self::getHTTPFile(self::$geodbmd5link, __DIR__ . '/../maxmind-db/');
+        $database_gz_filePath = self::getHTTPFile(config('geoUtils.uri.mmdb'), __DIR__ . '/../maxmind-db/');
+        $md5_filePath = self::getHTTPFile(config('geoUtils.uri.md5'), __DIR__ . '/../maxmind-db/');
 
         //UNZIP, TEST MD5 & COPY TO VENDOR\PragmaRX\Support\GeoIp;
         if($database_gz_filePath && $md5_filePath){
