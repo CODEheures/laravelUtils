@@ -10,5 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/geoByIp/{ip?}', ['as' => 'utils.getGeoByIp', 'uses' => '\Codeheures\LaravelGeoUtils\Http\Controllers\UtilsController@geoByIp']);
+Route::group(['prefix' => 'geoUtils'], function() {
+    Route::get('/geoByIp/{ip?}', ['as' => 'codeheures.geoUtils.getGeoByIp', 'uses' => '\Codeheures\LaravelGeoUtils\Http\Controllers\UtilsController@geoByIp']);
+    Route::get('/refreshDb', ['as' => 'codeheures.geoUtils.refreshDb', 'uses' => '\Codeheures\LaravelGeoUtils\Http\Controllers\UtilsController@refreshDb']);
+});

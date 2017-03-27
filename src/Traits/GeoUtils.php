@@ -4,14 +4,12 @@ namespace Codeheures\LaravelGeoUtils\Traits;
 
 
 
+use GeoIp2\Database\Reader;
+
 trait GeoUtils
 {
-    public static function getGeoByIp($ip=null) {
-        if(is_null($ip)){
-            $ip = config('runtime.ip');
-        }
-        //TODO refactoring var $reader
-        $reader = new Reader(base_path('vendor/pragmarx/support/src/GeoIp/').'GeoLite2-City.mmdb');
+    public static function getGeoByIp($ip) {
+        $reader = new Reader(__DIR__.'/../maxmind-db/GeoLite2-City.mmdb');
         $record = $reader->city($ip);
         $result = [
             "ip" => $ip,
