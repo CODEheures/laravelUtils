@@ -19,12 +19,18 @@ The next required step is to add the service provider to config/app.php :
 ```
     Codeheures\LaravelGeoUtils\LaravelGeoUtilsServiceProvider::class,
 ```
- 
+### Before first use we update maxmind db###
+```
+http://yourproject/geoUtils/refreshDb
+``` 
 Congratulations, you have successfully installed LaravelGeoUtils !
 
 ### Use ###
 ```
-http://yourproject/geoByIp
+/*
+* where 82.246.xxx.xxx is a valid IP
+*/
+http://yourproject/geoUtils/geoByIp/82.246.xxx.xxx
 ```
 
 ### Copyright and Licence ###
