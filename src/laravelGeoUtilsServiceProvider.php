@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 
 class LaravelGeoUtilsServiceProvider extends ServiceProvider
 {
+
     /**
      * Indicates if loading of the provider is deferred.
      *
