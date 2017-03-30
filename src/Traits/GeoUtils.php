@@ -9,7 +9,7 @@ use GeoIp2\Database\Reader;
 trait GeoUtils
 {
     public static function getGeoByIp($ip) {
-        $reader = new Reader(__DIR__.'/../maxmind-db/GeoLite2-City.mmdb');
+        $reader = new Reader(GeoIPUpdater::getDbDir() . basename(config('geoUtils.uri.mmdb')));
         $record = $reader->city($ip);
         $result = [
             "ip" => $ip,
