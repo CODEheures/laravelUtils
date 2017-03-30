@@ -3,6 +3,8 @@
 namespace Codeheures\LaravelGeoUtils\Traits;
 
 
+use Illuminate\Support\Facades\Storage;
+
 trait GeoIPUpdater
 {
     /**
@@ -29,8 +31,8 @@ trait GeoIPUpdater
     public static function updateGeoIpFiles() {
         //GET DB & MD5 FILES
         set_time_limit(180);
-        $database_gz_filePath = self::getHTTPFile(config('geoUtils.uri.mmdb'), __DIR__ . '/../maxmind-db/');
-        $md5_filePath = self::getHTTPFile(config('geoUtils.uri.md5'), __DIR__ . '/../maxmind-db/');
+        $database_gz_filePath = self::getHTTPFile(config('geoUtils.uri.mmdb'), config('geoUtils.destination_directory'));
+        $md5_filePath = self::getHTTPFile(config('geoUtils.uri.md5'), config('geoUtils.destination_directory'));
 
         //UNZIP, TEST MD5 & COPY TO VENDOR\PragmaRX\Support\GeoIp;
         if($database_gz_filePath && $md5_filePath){
@@ -52,10 +54,12 @@ trait GeoIPUpdater
         return false;
     }
 
-    private static function getHTTPFile($uri, $destinationPath) {
+    private static function getHTTPFile($uri, $destinationDirectory) {
         set_time_limit(360);
 
-        $fileWriteName = $destinationPath . basename($uri);
+        Storage::makeDirectory($destinationDirectory);
+
+        $fileWriteName = $destinationDirectory . basename($uri);
 
         $fileRead = @fopen($uri,"rb");
         $fileWrite = @fopen($fileWriteName, 'wb');

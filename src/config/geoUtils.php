@@ -7,6 +7,8 @@ return [
         'md5' => 'http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.md5',
     ],
 
+    'destination_directory' => storage_path(''),
+
     'routes' => [
         'prefix' => 'geoUtils',
         'geoByIp' => [
