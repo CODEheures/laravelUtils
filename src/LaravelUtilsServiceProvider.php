@@ -1,10 +1,10 @@
 <?php
 
-namespace Codeheures\LaravelGeoUtils;
+namespace Codeheures\LaravelUtils;
 
 use Illuminate\Support\ServiceProvider;
 
-class LaravelGeoUtilsServiceProvider extends ServiceProvider
+class LaravelUtilsServiceProvider extends ServiceProvider
 {
 
     /**

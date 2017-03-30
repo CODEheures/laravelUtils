@@ -1,7 +1,6 @@
 <?php
 
-namespace Codeheures\LaravelGeoUtils\Traits;
-
+namespace Codeheures\LaravelUtils\Traits\Geo;
 
 
 use GeoIp2\Database\Reader;
@@ -9,7 +8,7 @@ use GeoIp2\Database\Reader;
 trait GeoUtils
 {
     public static function getGeoByIp($ip) {
-        $fileName = substr(basename(config('geoUtils.uri.mmdb')), 0, strlen(basename(config('geoUtils.uri.mmdb')))-3);
+        $fileName = substr(basename(config('codeheuresUtils.geoIp.uri.mmdb')), 0, strlen(basename(config('codeheuresUtils.geoIp.uri.mmdb')))-3);
         $reader = new Reader(GeoIPUpdater::getDbDir() . $fileName);
         $record = $reader->city($ip);
         $result = [

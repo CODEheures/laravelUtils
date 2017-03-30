@@ -1,7 +1,7 @@
 {
-  "name": "codeheures/laravel-geo-utils",
-  "description": "Geo Utility for Laravel 5.4",
-  "homepage": "http://github.com/codeheures/laravelGeoUtils",
+  "name": "codeheures/laravel-utils",
+  "description": "Utility for Laravel 5.4",
+  "homepage": "http://github.com/codeheures/laravelUtils",
   "license": "Apache2",
   "authors": [
     {
@@ -12,12 +12,11 @@
   "require": {
     "php": ">=5.4.0",
     "illuminate/support": "~5.4",
-    "codeheures/laravel-tools":"^1.0",
     "geoip2/geoip2": "~2.0"
   },
   "autoload": {
     "psr-4": {
-      "Codeheures\\LaravelGeoUtils\\": "src/"
+      "Codeheures\\LaravelUtils\\": "src/"
     }
   }
 }

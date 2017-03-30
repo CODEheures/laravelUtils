@@ -1,11 +1,11 @@
 <?php
 
-namespace Codeheures\laravelGeoUtils\Http\Controllers;
+namespace Codeheures\LaravelUtils\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Codeheures\LaravelGeoUtils\Traits\GeoIPUpdater;
-use Codeheures\LaravelGeoUtils\Traits\GeoUtils;
-use Codeheures\LaravelTools\Traits\Ip;
+use Codeheures\LaravelUtils\Traits\Geo\GeoIPUpdater;
+use Codeheures\LaravelUtils\Traits\Geo\GeoUtils;
+use Codeheures\LaravelUtils\Traits\Tools\Ip;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -28,7 +28,7 @@ class UtilsController extends Controller
 
         //If Ip==null we use IP of request. If IP request is local we us IP test
         if(is_null($ip)){
-            $ip = Ip::getNonPrivateIpByRequest($request, config('geoUtils.ipTest'));
+            $ip = Ip::getNonPrivateIpByRequest($request, config('codeheuresUtils.ipTest'));
         }
 
         //If IP is valid

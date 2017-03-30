@@ -1,14 +1,16 @@
 <?php
 
-namespace Codeheures\LaravelGeoUtils\Traits;
+namespace Codeheures\LaravelUtils\Traits\Geo;
 
 
-use Codeheures\LaravelTools\Traits\FilesDirs;
+
+
+use Codeheures\LaravelUtils\Traits\Tools\FilesDirs;
 
 trait GeoIPUpdater
 {
     public static function getDbDir () {
-        return FilesDirs::getCleanDir(config('geoUtils.destination_directory'));
+        return FilesDirs::getCleanDir(config('codeheuresUtils.geoIp.destination_directory'));
     }
 
     /**
@@ -36,8 +38,8 @@ trait GeoIPUpdater
         //GET DB & MD5 FILES
         set_time_limit(180);
 
-        $database_gz_filePath = FilesDirs::getHTTPFile(config('geoUtils.uri.mmdb'), self::getDbDir());
-        $md5_filePath = FilesDirs::getHTTPFile(config('geoUtils.uri.md5'), self::getDbDir());
+        $database_gz_filePath = FilesDirs::getHTTPFile(config('codeheuresUtils.geoIp.uri.mmdb'), self::getDbDir());
+        $md5_filePath = FilesDirs::getHTTPFile(config('codeheuresUtils.geoIp.uri.md5'), self::getDbDir());
         //UNZIP, TEST MD5 & COPY TO VENDOR\PragmaRX\Support\GeoIp;
         if($database_gz_filePath && $md5_filePath){
             $database_filePath= FilesDirs::dezipGzFile($database_gz_filePath);
