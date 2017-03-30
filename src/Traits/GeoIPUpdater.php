@@ -59,7 +59,9 @@ trait GeoIPUpdater
 
         Storage::makeDirectory($destinationDirectory);
 
-        $fileWriteName = $destinationDirectory . basename($uri);
+        $fileWriteName = str_replace('//', '/', $destinationDirectory);
+        $fileWriteName .= (substr($destinationDirectory,-1)!=="/") ? '/' : '';
+        $fileWriteName .= basename($uri);
 
         $fileRead = @fopen($uri,"rb");
         $fileWrite = @fopen($fileWriteName, 'wb');
