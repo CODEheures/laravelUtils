@@ -4,7 +4,6 @@ namespace Codeheures\LaravelGeoUtils\Traits;
 
 
 use Codeheures\LaravelTools\Traits\FilesDirs;
-use Illuminate\Support\Facades\Storage;
 
 trait GeoIPUpdater
 {
@@ -39,7 +38,6 @@ trait GeoIPUpdater
 
         $database_gz_filePath = FilesDirs::getHTTPFile(config('geoUtils.uri.mmdb'), self::getDbDir());
         $md5_filePath = FilesDirs::getHTTPFile(config('geoUtils.uri.md5'), self::getDbDir());
-
         //UNZIP, TEST MD5 & COPY TO VENDOR\PragmaRX\Support\GeoIp;
         if($database_gz_filePath && $md5_filePath){
             $database_filePath= FilesDirs::dezipGzFile($database_gz_filePath);

@@ -9,7 +9,8 @@ use GeoIp2\Database\Reader;
 trait GeoUtils
 {
     public static function getGeoByIp($ip) {
-        $reader = new Reader(GeoIPUpdater::getDbDir() . basename(config('geoUtils.uri.mmdb')));
+        $fileName = substr(basename(config('geoUtils.uri.mmdb')), 0, strlen(basename(config('geoUtils.uri.mmdb')))-3);
+        $reader = new Reader(GeoIPUpdater::getDbDir() . $fileName);
         $record = $reader->city($ip);
         $result = [
             "ip" => $ip,
