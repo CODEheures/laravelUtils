@@ -11,10 +11,6 @@ use Illuminate\Http\Response;
 
 class UtilsController extends Controller
 {
-
-    use GeoUtils;
-    use GeoIPUpdater;
-
     CONST ALL = 0;
     CONST COUNTRY = 1;
     CONST LOC = 2;
@@ -36,13 +32,13 @@ class UtilsController extends Controller
             try {
                 switch ($type) {
                     case self::ALL:
-                        $result = $this->getGeoByIp($ip);
+                        $result = GeoUtils::getGeoByIp($ip);
                         break;
                     case self::COUNTRY:
-                        $result = $this->getCountryByIp($ip);
+                        $result = GeoUtils::getCountryByIp($ip);
                         break;
                     case self::LOC:
-                        $result = $this->getGeoLocByIp($ip);
+                        $result = GeoUtils::getGeoLocByIp($ip);
                         break;
                     default:
                         throw new \Exception('');
@@ -70,7 +66,7 @@ class UtilsController extends Controller
     public function refreshDb() {
         $response = response()->json(['error' => 'bad report on maxmind db refresh']);
         try {
-            $result = $this->updateGeoIpFiles();
+            $result = GeoIPUpdater::updateGeoIpFiles();
         } catch (\Exception $e) {
             return $response;
         }

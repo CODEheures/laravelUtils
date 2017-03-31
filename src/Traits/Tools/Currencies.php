@@ -30,8 +30,11 @@ trait Currencies
      * @return int
      */
     public static function getSubUnit($currency) {
-        $currencies = new ISOCurrencies();
-        return $currencies->subunitFor(new Currency($currency));
+        if(self::isAvailableCurrency($currency)){
+            $currencies = new ISOCurrencies();
+            return $currencies->subunitFor(new Currency($currency));
+        }
+        return 0;
     }
 
     /**
