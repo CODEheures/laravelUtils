@@ -29,7 +29,7 @@ return [
             ],
             'refreshDb' => [
                 'uri' => 'refreshDb',
-                'name' => 'codeheurs.geoUtils.refreshDb',
+                'name' => 'codeheures.geoUtils.refreshDb',
                 'middlewares' => []
             ]
         ],
