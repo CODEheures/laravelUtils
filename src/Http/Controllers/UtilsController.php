@@ -15,6 +15,23 @@ class UtilsController extends Controller
     CONST COUNTRY = 1;
     CONST LOC = 2;
 
+    public function __construct() {
+        foreach (config('codeheuresUtils.geoIp.routes.geoByIp.middlewares') as $middle) {
+            $this->middleware($middle)->only('geoByIp');
+        }
+        foreach (config('codeheuresUtils.geoIp.routes.geoLocByIp.middlewares') as $middle) {
+            $this->middleware($middle)->only('geoLocByIp');
+        }
+        foreach (config('codeheuresUtils.geoIp.routes.countryByIp.middlewares') as $middle) {
+            $this->middleware($middle)->only('countryByIp');
+        }
+        foreach (config('codeheuresUtils.geoIp.routes.refreshDb.middlewares') as $middle) {
+            $this->middleware($middle)->only('refreshDb');
+        }
+    }
+
+
+
     private function makeResponse($ip=null, Request $request, $type) {
         //Make new response (error by default)
         $response = new Response();
@@ -64,6 +81,7 @@ class UtilsController extends Controller
     }
 
     public function refreshDb() {
+        dd('coucou');
         $response = response()->json(['error' => 'bad report on maxmind db refresh']);
         try {
             $result = GeoIPUpdater::updateGeoIpFiles();

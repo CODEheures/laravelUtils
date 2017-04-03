@@ -294,7 +294,11 @@ protected $middlewareGroups = [
 ```
     php artisan vendor:publish --provider="Codeheures\LaravelUtils\LaravelUtilsServiceProvider"
 ```
-In config file you can change routes uri, routes names and value of Ip test, list of availables locales
+In config file you can change 
+- routes uri, 
+- routes names 
+- value of Ip test
+- list of availables locales
 
 - Optionnal: add "locale" atribute to User to manage saving preferences locale in your app
 
@@ -312,6 +316,9 @@ This product includes GeoLite2 data created by MaxMind, available from
 
 This product use GeoIp2 on apache2 Licence
 <a href="https://github.com/maxmind/GeoIP2-php">https://github.com/maxmind/GeoIP2-php</a>.
+
+This product use Moneyphp on MIT Licence
+<a href="https://github.com/moneyphp/money">https://github.com/moneyphp/money</a>.
 
 This software is provided "as is" without warranty of any kind, either express or implied, regarding the software package, its merchantability, or its fitness for any particular purpose. 
 
