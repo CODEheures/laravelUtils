@@ -38,8 +38,6 @@ return [
     'ipTest' => '82.246.117.210',
 
     'availableLocales' => [
-        'fr',
         'en',
-        'es'
     ]
 ];
