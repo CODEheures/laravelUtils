@@ -81,7 +81,6 @@ class UtilsController extends Controller
     }
 
     public function refreshDb() {
-        dd('coucou');
         $response = response()->json(['error' => 'bad report on maxmind db refresh']);
         try {
             $result = GeoIPUpdater::updateGeoIpFiles();
