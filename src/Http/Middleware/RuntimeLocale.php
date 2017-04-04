@@ -8,9 +8,6 @@ use Codeheures\LaravelUtils\Traits\Tools\Locale;
 
 class RuntimeLocale
 {
-
-    CONST LAST_FALLBACK_LOCALE = 'en_US';
-
     /**
      * Handle an incoming request.
      *
@@ -41,19 +38,19 @@ class RuntimeLocale
             //first set config('runtime.locale') by locale user attribute
             if (auth()->check() && !is_null(auth()->user()->locale)) {
                 $locale = auth()->user()->locale;
-                $this->setValidLocale($locale);
+                $locale = Locale::isValidLocale($locale);
             }
 
             //if fail try to set config('runtime.locale') by session value
             if (is_null($locale) && !is_null(session('runtime.locale'))) {
                 $locale = session('runtime.locale');
-                $this->setValidLocale($locale);
+                $locale = Locale::isValidLocale($locale);
             }
 
             //if fails try with request Region+locale
             if(is_null($locale) && $requestLanguage != '' && $requestRegion != '') {
                 $locale = Locale::composeLocale($requestLanguage, $requestRegion);
-                $this->setValidLocale($locale);
+                $locale = Locale::isValidLocale($locale);
             }
 
             //If fail, try with IP infos
@@ -66,32 +63,26 @@ class RuntimeLocale
 
                 if (!is_null($country) && $country != '' && $requestLanguage != '') {
                     $locale = Locale::composeLocale($requestLanguage, $country);
-                    $this->setValidLocale($locale);
+                    $locale = Locale::isValidLocale($locale);
                 }
             }
 
             //If fail try to get First locale by language
             if(is_null($locale) && $requestLanguage != '') {
                 $locale = Locale::getFirstLocaleByLanguageCode($requestLanguage);
-                $this->setValidLocale($locale);
+                $locale = Locale::isValidLocale($locale);
             }
 
-            //If fails try with env('DEFAULT_LOCALE')
-            if (is_null($locale) && !is_null(env('DEFAULT_LOCALE'))) {
-                $locale = env('DEFAULT_LOCALE');
-                $this->setValidLocale($locale);
-            }
-
-            //Finally use last fallback
+            //If fails try with env('DEFAULT_LOCALE') or last_fall_back
             if (is_null($locale)) {
-                $locale = self::LAST_FALLBACK_LOCALE;
+               $locale = Locale::getDefaultLocale();
             }
 
             config(['runtime.locale' => $locale]);
 
 
         } catch(\Exception $e) {
-            config(['runtime.locale' => self::LAST_FALLBACK_LOCALE]);
+            config(['runtime.locale' => Locale::$last_fallback_locale]);
         }
 
         session(['runtime.locale' => config('runtime.locale')]);
@@ -99,12 +90,5 @@ class RuntimeLocale
 
         return $next($request);
 
-    }
-
-    private function setValidLocale($locale) {
-        if(!is_null($locale) && !Locale::existLocale($locale)){
-            $locale = null;
-        }
-        return $locale;
     }
 }

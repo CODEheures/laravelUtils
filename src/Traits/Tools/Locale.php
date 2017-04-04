@@ -5,6 +5,9 @@ namespace Codeheures\LaravelUtils\Traits\Tools;
 
 trait Locale
 {
+
+    public static $last_fallback_locale = 'en_US';
+
     /**
      * Return Array of Available Locales On server
      *
@@ -89,5 +92,42 @@ trait Locale
         } else {
             return null;
         }
+    }
+
+    /**
+     *
+     * return a default locale within env('DEFAULT_LOCALE') or static last_fallback_locale
+     *
+     * @return string
+     */
+    public static function getDefaultLocale() {
+        $locale  = null;
+        //If fails try with env('DEFAULT_LOCALE')
+        if (!is_null(env('DEFAULT_LOCALE'))) {
+            $locale = env('DEFAULT_LOCALE');
+            $locale = self::isValidLocale($locale);
+        }
+
+        //Finally use last fallback
+        if (is_null($locale)) {
+            $locale = self::$last_fallback_locale;
+        }
+
+        return $locale;
+    }
+
+    /**
+     *
+     * Test if a locale is a valid locale and return locale or null
+     *
+     * @param $locale
+     * @return null|string
+     *
+     */
+    public static function isValidLocale($locale) {
+        if(!is_null($locale) && !Locale::existLocale($locale)){
+            $locale = null;
+        }
+        return $locale;
     }
 }

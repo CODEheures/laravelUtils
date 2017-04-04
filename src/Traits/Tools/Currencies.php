@@ -7,6 +7,9 @@ use Money\Currency;
 
 trait Currencies
 {
+
+    public static $last_fallback_currency = 'EUR';
+
     /**
      *
      * Return true if currency exist (example $currency: "EUR", "USD")
@@ -16,7 +19,7 @@ trait Currencies
      */
     public static function isAvailableCurrency($currency) {
         $currencies = new ISOCurrencies();
-        if ($currencies->contains(new Currency($currency)) && $currency != '') {
+        if (!is_null($currency) && $currency != '' && $currencies->contains(new Currency($currency))) {
             return true;
         }
         return false;
@@ -88,13 +91,33 @@ trait Currencies
      * @return mixed|string
      */
     public static function getDefaultMoneyByComposeLocale($locale, $default) {
-        $currencies = new ISOCurrencies();
         $numberFormatter = new \NumberFormatter($locale, \NumberFormatter::CURRENCY);
         $currency =  $numberFormatter->getTextAttribute(\NumberFormatter::CURRENCY_CODE);
-        if ($currency != '' && $currencies->contains(new Currency($currency))) {
+        if(self::isAvailableCurrency($currency)){
             return $currency;
         } else {
             return $default;
         }
+    }
+
+    /**
+     *
+     * return a default currency within env('DEFAULT_CURRENCY') or static $last_fallback_currency
+     *
+     * @return null
+     */
+    public static function getDefaultCurrency() {
+        $currency  = null;
+
+        if (!is_null(env('DEFAULT_CURRENCY'))) {
+            $currency = env('DEFAULT_CURRENCY');
+        }
+
+        //Finally use last fallback
+        if (is_null($currency) || !self::isAvailableCurrency($currency)) {
+            $currency = self::$last_fallback_currency;
+        }
+
+        return $currency;
     }
 }

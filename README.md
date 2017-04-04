@@ -8,7 +8,8 @@ Laravel-utils is a toolbox that allow:
  - PHP tool to get database enum list, or get count items with a reusable mutiple where (=) clause
  - Middleware to to share config('runtime.ip') variable (base on PHP tool to get valid public IP)
  - Middleware to obtain automatically the best locale for your client and share it on your application by a config('runtime.locale') variable
- 
+ - Middleware to obtain automatically the best currency for your client and share it on your application by a config('runtime.currency') variable
+  
  
 API: Geolocation Informations by Ip
 -----------------------------------
@@ -136,7 +137,7 @@ PHP Tool: Locale Tools
 ----------------------
 
 Locale Tools allow you to obtain various information of locales.
-This suite of tools is used in a powerful middleware to find the best local adapted to the user.
+This suite of tools is used in a powerful middleware to find the best locale adapted to the user.
 When the middleware find the best locale, this is shared in a config('runtime.locale') variable accessible throughout
 the application. You can use it to translate your application for the user.
 
@@ -169,6 +170,15 @@ Codeheures\LaravelUtils\Traits\Tools\Locale::existLocale('fr_FR');
 true
 ````
 
+###Test if a locale is an valid locale and return locale or null
+````php
+Codeheures\LaravelUtils\Traits\Tools\Locale::isValidLocale('fr_FR');
+````
+````php
+//result example
+"fr_FR"
+````
+
 ###Get the first possible locale by a country code 
 ````php
 Codeheures\LaravelUtils\Traits\Tools\Locale::getFirstLocaleByCountryCode('ca');
@@ -186,11 +196,22 @@ Codeheures\LaravelUtils\Traits\Tools\Locale::composeLocale('fr', 'CA');
 "fr_CA"
 ````
 
+###Get default Locale within env('DEFAULT_LOCALE') or static var $last_fall_locale 
+````php
+Codeheures\LaravelUtils\Traits\Tools\Locale::getDefaultLocale();
+````
+````php
+//result example
+"en_US"
+````
 
 PHP Tool: Currencies Tools
 --------------------------
 
-Currencies Tools allow you to obtain various information of currencies. It use MoneyPhp
+Currencies Tools allow you to obtain various information of currencies. It use MoneyPhp and config('runtime.locale')
+This suite of tools is used in a powerful middleware to find the best currency adapted to the user.
+When the middleware find the best currency, this is shared in a config('runtime.currency') variable accessible throughout
+the application. You can use it to manage prices in your application.
 
 ###Test if a currency exist
 ````php
@@ -247,19 +268,29 @@ Codeheures\LaravelUtils\Traits\Tools\Currencies::getDefaultMoneyByComposeLocale(
 "CAD" 
 ````
 
-Middleware: config('runtime.ip') & config('runtime.locale')
------------------------------------------------------------
+###Get default Currency within env('DEFAULT_CURRENCY') or static var $last_fall_currency 
+````php
+Codeheures\LaravelUtils\Traits\Tools\Locale::getDefaultCurrency();
+````
+````php
+//result example
+"EUR"
+````
 
-Installation of middlawares allow you to use config('runtime.ip') & config('runtime.locale') all
-over the application controllers ans views
+Middleware: config('runtime.ip'), config('runtime.locale') & config('runtime.currency')
+---------------------------------------------------------------------------------------
+
+Installation of middlawares allow you to use config('runtime.ip'), config('runtime.locale') & config('runtime.currency')
+all over the application controllers ans views
 
 ````php
 config('runtime.ip') //your public Ip or fallback ip (see above PHP Tool: Get valid public IP)
 config('runtime.locale') //the RuntimeLocale middlware look for the best local and assign to this
+config('runtime.currency') //the RuntimeLocale middlware look for the best currecny and assign to this
 ````
 
   
-### Installation ###
+# Installation #
  
 - Add laravel-utils to your composer.json file to require laravel-utils :
 ```
@@ -279,14 +310,15 @@ config('runtime.locale') //the RuntimeLocale middlware look for the best local a
     Codeheures\LaravelUtils\LaravelUtilsServiceProvider::class,
 ```
 
-- add middlewares to web routes in app/Http/kernel.php:
+- add middlewares to web routes in app/Http/kernel.php (respect order IP->Locale->Currency):
 
 ```
 protected $middlewareGroups = [
         'web' => [
             ...
-            \Codeheures\LaravelUtils\Http\Middleware\RuntimeIp::class,
-            \Codeheures\LaravelUtils\Http\Middleware\RuntimeLocale::class,
+            \Codeheures\LaravelUtils\Http\Middleware\RuntimeIp::class,       
+            \Codeheures\LaravelUtils\Http\Middleware\RuntimeLocale::class,   
+            \Codeheures\LaravelUtils\Http\Middleware\RuntimeCurrency::class,
         ],
 ```
 
