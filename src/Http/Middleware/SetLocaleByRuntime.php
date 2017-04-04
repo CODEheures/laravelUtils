@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace Codeheures\LaravelUtils\Http\Middleware;
 
 use Closure;
 use Codeheures\LaravelUtils\Traits\Locale\ManageLocale;
