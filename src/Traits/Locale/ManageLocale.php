@@ -8,10 +8,12 @@ use Illuminate\Support\Facades\App;
 trait ManageLocale {
 
     public static function setAppLocale($locale) {
+        $primaryLanguage = null;
+        if(!is_null($locale) && $locale != ''){
+            $primaryLanguage = \Locale::getPrimaryLanguage($locale);
+        }
 
-        $primaryLanguage = \Locale::getPrimaryLanguage($locale);
-
-        if (in_array($primaryLanguage, config('codeheuresUtils.availableLocales'))) {
+        if (!is_null($primaryLanguage) && in_array($primaryLanguage, config('codeheuresUtils.availableLocales'))) {
             App::setLocale($primaryLanguage);
         } else {
             App::setLocale(config('app.fallback_locale'));

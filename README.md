@@ -310,7 +310,8 @@ config('runtime.currency') //the RuntimeLocale middlware look for the best curre
     Codeheures\LaravelUtils\LaravelUtilsServiceProvider::class,
 ```
 
-- add middlewares to web routes in app/Http/kernel.php (respect order IP->Locale->Currency):
+- add middlewares to web routes in app/Http/kernel.php (respect order IP->Locale->Currency). Middleware SetLocaleByRuntime
+is optionnal and allow you to set your app locale automatically base on the detect best locale.:
 
 ```
 protected $middlewareGroups = [
@@ -319,6 +320,7 @@ protected $middlewareGroups = [
             \Codeheures\LaravelUtils\Http\Middleware\RuntimeIp::class,       
             \Codeheures\LaravelUtils\Http\Middleware\RuntimeLocale::class,   
             \Codeheures\LaravelUtils\Http\Middleware\RuntimeCurrency::class,
+            \Codeheures\LaravelUtils\Http\Middleware\SetLocaleByRuntime::class, //optionnal
         ],
 ```
 
