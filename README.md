@@ -281,7 +281,9 @@ Middleware: config('runtime.ip'), config('runtime.locale') & config('runtime.cur
 ---------------------------------------------------------------------------------------
 
 Installation of middlawares allow you to use config('runtime.ip'), config('runtime.locale') & config('runtime.currency')
-all over the application controllers ans views
+all over the application controllers ans views.
+
+config('runtime.locale') & config('runtime.currency') can be saved and read in User attribute 'locale' & 'currency'
 
 ````php
 config('runtime.ip') //your public Ip or fallback ip (see above PHP Tool: Get valid public IP)
