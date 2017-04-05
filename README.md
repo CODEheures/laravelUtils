@@ -17,7 +17,7 @@ This API allow you to serve geolocation infos to client (useful for xhtmlrequest
 You can also use static function for a server side processing.
 
 
-###Get complete informations
+### Get complete informations
 with Ip on URL
 ````
 http://yourproject/geoIp/geoByIp/82.246.117.210
@@ -35,7 +35,7 @@ http://yourproject/geoIp/geoByIp
 //result example
 {"ip":"82.246.117.210","city":"Joué-lès-Tours","region":"Centre","country":"FR","loc":"47.3522,0.6691","postal":"37300"}
 ````
-###Get only LOC [latitutde, longitude] informations
+### Get only LOC [latitutde, longitude] informations
 With or without IP on url (see above)
 ````
 http://yourproject/geoIp/geoLocByIp
@@ -44,24 +44,24 @@ http://yourproject/geoIp/geoLocByIp
 //result example
 ["47.3522","0.6691"]
 ````
+### Get only Country informations
 With or without IP on url (see above)
 ````
 http://yourproject/geoIp/countryByIp
 ````
-###Get only Country informations
 ````json
 //result example
 "FR"
 ````
-###If error
-````
+### If error
+````json
 //result example
 {"error":"unknow IP"}
 ````
 
 PHP Tool: Geolocation Informations by Ip
 ----------------------------------------
-###You can use statics class for a side-server processing
+### You can use statics class for a side-server processing
 ````php
 $ip = "82.246.117.210"
 if(filter_var($ip, FILTER_VALIDATE_IP)) {
@@ -75,10 +75,11 @@ if(filter_var($ip, FILTER_VALIDATE_IP)) {
 }            
 ````
 ````php
+//result example
 [
-'all_infos' => ["ip"=>"82.246.117.210","city"=>"Joué-lès-Tours","region"=>"Centre","country"=>"FR","loc"=>"47.3522,0.6691","postal"=>"37300"],
-'loc_infos' => ["47.3522","0.6691"],
-'country_info' => "FR"
+    'all_infos' => ["ip"=>"82.246.117.210","city"=>"Joué-lès-Tours","region"=>"Centre","country"=>"FR","loc"=>"47.3522,0.6691","postal"=>"37300"],
+    'loc_infos' => ["47.3522","0.6691"],
+    'country_info' => "FR"
 ]
 ````
 PHP Tool: Get valid public IP
@@ -113,7 +114,7 @@ $browser = Codeheures\LaravelUtils\Traits\Tools\Browser::getBrowserName();
 PHP Tool: Get Database Infos
 ----------------------------
 
-###get list of enum values for a column of a table
+### get list of enum values for a column of a table
 Example: get the enum values of the currencies column of the priceTable
 ````php
 $listEnumValues = Codeheures\LaravelUtils\Traits\Tools\Database::getEnumValues('priceTable','currencies');
@@ -123,7 +124,7 @@ $listEnumValues = Codeheures\LaravelUtils\Traits\Tools\Database::getEnumValues('
 ['dollard', 'euro', 'yen', 'bitcoins']
 ````
 
-###get easy count elem on a table with multiple count where
+### get easy count elem on a table with multiple count where
 The where clauses is a equal clauses
 ````php
 Codeheures\LaravelUtils\Traits\Tools\Database::getCountItems('customer',['name'=>'paul', 'age'=>'18']); 
@@ -141,18 +142,19 @@ This suite of tools is used in a powerful middleware to find the best locale ada
 When the middleware find the best locale, this is shared in a config('runtime.locale') variable accessible throughout
 the application. You can use it to translate your application for the user.
 
-###Array of locales availables on the server
+### Array of locales availables on the server
+without restriction of availables languages (find in codeheuresUtils.availableLocales config file):
 ````php
 Codeheures\LaravelUtils\Traits\Tools\Locale::listLocales();
 ````
 ````php
 //result example
-[    "af" => array:3 [
+[    "af" => [
         "code" => "af",
         "name" => "afrikaans",
         "region" => ""
       ],
-      "af_NA" => array:3 [▼
+      "af_NA" => [
         "code" => "af_NA",
         "name" => "afrikaans (Namibie)",
         "region" => "namibie"
@@ -160,8 +162,33 @@ Codeheures\LaravelUtils\Traits\Tools\Locale::listLocales();
       ...
 ]      
 ````
+with restriction:
+````php
+Codeheures\LaravelUtils\Traits\Tools\Locale::listLocales();
+````
+````php
+//result example
+[       
+       "en" => [
+         "code" => "en",
+         "name" => "anglais",
+         "region" => ""
+       ]
+       "en_001" => [
+         "code" => "en_001",
+         "name" => "anglais (Monde)",
+         "region" => "monde"
+       ]
+       "en_150" => [
+         "code" => "en_150",
+         "name" => "anglais (Europe)",
+         "region" => "europe"
+       ]     
+      ...
+]     
+````
 
-###Boolean test if a locale is an available locale
+### Boolean test if a locale is an available locale
 ````php
 Codeheures\LaravelUtils\Traits\Tools\Locale::existLocale('fr_FR');
 ````
@@ -170,7 +197,7 @@ Codeheures\LaravelUtils\Traits\Tools\Locale::existLocale('fr_FR');
 true
 ````
 
-###Test if a locale is an valid locale and return locale or null
+### Test if a locale is an valid locale and return locale or null
 ````php
 Codeheures\LaravelUtils\Traits\Tools\Locale::isValidLocale('fr_FR');
 ````
@@ -179,15 +206,16 @@ Codeheures\LaravelUtils\Traits\Tools\Locale::isValidLocale('fr_FR');
 "fr_FR"
 ````
 
-###Get the first possible locale by a country code 
+### Get the first possible locale by a country code 
 ````php
 Codeheures\LaravelUtils\Traits\Tools\Locale::getFirstLocaleByCountryCode('ca');
 ````
 ````php
+//result example
 "en_CA"
 ````
 
-###Compose a locale and return if exist, null if don't exist 
+### Compose a locale and return if exist, null if don't exist 
 ````php
 Codeheures\LaravelUtils\Traits\Tools\Locale::composeLocale('fr', 'CA');
 ````
@@ -196,7 +224,7 @@ Codeheures\LaravelUtils\Traits\Tools\Locale::composeLocale('fr', 'CA');
 "fr_CA"
 ````
 
-###Get default Locale within env('DEFAULT_LOCALE') or static var $last_fall_locale 
+### Get default Locale within env('DEFAULT_LOCALE') or static var $last_fall_locale 
 ````php
 Codeheures\LaravelUtils\Traits\Tools\Locale::getDefaultLocale();
 ````
@@ -213,7 +241,7 @@ This suite of tools is used in a powerful middleware to find the best currency a
 When the middleware find the best currency, this is shared in a config('runtime.currency') variable accessible throughout
 the application. You can use it to manage prices in your application.
 
-###Test if a currency exist
+### Test if a currency exist
 ````php
 Codeheures\LaravelUtils\Traits\Tools\Currencies::isAvailableCurrency("EUR")
 ````
@@ -222,7 +250,7 @@ Codeheures\LaravelUtils\Traits\Tools\Currencies::isAvailableCurrency("EUR")
 true
 ````
 
-###Get subunit of a currency (if exist else return 0)
+### Get subunit of a currency (if exist else return 0)
 ````php
 Codeheures\LaravelUtils\Traits\Tools\Currencies::getSubUnit("EUR")
 ````
@@ -231,18 +259,18 @@ Codeheures\LaravelUtils\Traits\Tools\Currencies::getSubUnit("EUR")
 2
 ````
 
-###Get list of currencies with symbol according to a locale
+### Get list of currencies with symbol according to a locale
 ````php
 Codeheures\LaravelUtils\Traits\Tools\Currencies::listCurrencies("fr_CA")
 ````
 ````php
 //result example
 [
-    "XAF" => array:2 [
+    "XAF" => [
       "code" => "XAF",
       "symbol" => "XAF",
     ],
-    "CAD" => array:2 [
+    "CAD" => [
       "code" => "CAD",
       "symbol" => "$",
     ],
@@ -250,7 +278,7 @@ Codeheures\LaravelUtils\Traits\Tools\Currencies::listCurrencies("fr_CA")
 ]    
 ````
 
-###Get symbol by currency code and locale
+### Get symbol by currency code and locale
 ````php
 Codeheures\LaravelUtils\Traits\Tools\Currencies::getSymbolByCurrencyCode("CAD", "fr)
 ````
@@ -259,7 +287,7 @@ Codeheures\LaravelUtils\Traits\Tools\Currencies::getSymbolByCurrencyCode("CAD", 
 "$CA" 
 ````
 
-###Get default money by a compose local (the second param is a fallback currency)
+### Get default money by a compose local (the second param is a fallback currency)
 ````php
 Codeheures\LaravelUtils\Traits\Tools\Currencies::getDefaultMoneyByComposeLocale("fr_CA", "EUR")
 ````
@@ -268,7 +296,7 @@ Codeheures\LaravelUtils\Traits\Tools\Currencies::getDefaultMoneyByComposeLocale(
 "CAD" 
 ````
 
-###Get default Currency within env('DEFAULT_CURRENCY') or static var $last_fall_currency 
+### Get default Currency within env('DEFAULT_CURRENCY') or static var $last_fall_currency 
 ````php
 Codeheures\LaravelUtils\Traits\Tools\Locale::getDefaultCurrency();
 ````
@@ -333,10 +361,11 @@ protected $middlewareGroups = [
 In config file you can change 
 - routes uri, 
 - routes names 
+- routes middlwares (Add a admin type middleware to refreshDb is highly advised)
 - value of Ip test
 - list of availables locales
 
-- Optionnal: add "locale" atribute to User to manage saving preferences locale in your app
+Optionnal: add "locale" and/or "currency" attribute to User to manage saving preferences locale in your app
 
 
 ### Before first use we update maxmind db ###

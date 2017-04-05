@@ -13,16 +13,26 @@ trait Locale
      *
      * @return array
      */
-    public static function listLocales() {
+    public static function listLocales($restrictByAppLanguages=false) {
         $locales = \ResourceBundle::getLocales('');
 
         $listLocales = [];
         foreach ($locales as $locale) {
-            $listLocales[$locale] = [
-                'code' => $locale,
-                'name' => \Locale::getDisplayName($locale),
-                'region' => strtolower(\Locale::getDisplayRegion($locale))
-            ];
+            $isAvailableToAddInArray = true;
+            if ($restrictByAppLanguages===true) {
+                $primaryLanguage = \Locale::getPrimaryLanguage($locale);
+                if (is_null($primaryLanguage) || !in_array($primaryLanguage, config('codeheuresUtils.availableLocales'))) {
+                    $isAvailableToAddInArray=false;
+                }
+            }
+
+            if($isAvailableToAddInArray) {
+                $listLocales[$locale] = [
+                    'code' => $locale,
+                    'name' => \Locale::getDisplayName($locale),
+                    'region' => strtolower(\Locale::getDisplayRegion($locale))
+                ];
+            }
         }
 
         return $listLocales;
