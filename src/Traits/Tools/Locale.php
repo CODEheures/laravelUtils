@@ -125,7 +125,7 @@ trait Locale
      *
      */
     public static function isValidLocale($locale) {
-        if(!is_null($locale) && !Locale::existLocale($locale)){
+        if(!is_null($locale) && !self::existLocale($locale)){
             $locale = null;
         }
         return $locale;
