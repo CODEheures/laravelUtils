@@ -58,11 +58,13 @@ trait Currencies
 
             if($symbol != '') {
                 $currencyCode = $currency->getCode();
-                $listCodeCurrencies[$currencyCode] = [
-                    'code' => $currencyCode,
-                    'symbol' => $symbol,
-                    'subunit' => self::getSubUnit($currencyCode)
-                ];
+                if($currencyCode != ''){
+                    $listCodeCurrencies[$currencyCode] = [
+                        'code' => $currencyCode,
+                        'symbol' => $symbol,
+                        'subunit' => self::getSubUnit($currencyCode)
+                    ];
+                }
             }
         }
         return $listCodeCurrencies;
