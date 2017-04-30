@@ -57,9 +57,12 @@ trait Currencies
             $symbol = $formatter->getSymbol(\NumberFormatter::CURRENCY_SYMBOL);
 
             if($symbol != '') {
-                $listCodeCurrencies[$currency->getCode()] = [
-                    'code' => $currency->getCode(),
-                    'symbol' => $symbol];
+                $currencyCode = $currency->getCode();
+                $listCodeCurrencies[$currencyCode] = [
+                    'code' => $currencyCode,
+                    'symbol' => $symbol,
+                    'subunit' => self::getSubUnit($currencyCode)
+                ];
             }
         }
         return $listCodeCurrencies;

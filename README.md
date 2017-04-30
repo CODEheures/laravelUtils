@@ -269,10 +269,12 @@ Codeheures\LaravelUtils\Traits\Tools\Currencies::listCurrencies("fr_CA")
     "XAF" => [
       "code" => "XAF",
       "symbol" => "XAF",
+      "subunit" => 0
     ],
     "CAD" => [
       "code" => "CAD",
       "symbol" => "$",
+      "subunit" => 2
     ],
     ...
 ]    
