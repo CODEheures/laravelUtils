@@ -41,6 +41,12 @@ class RuntimeLocale
                 $locale = Locale::isValidLocale($locale);
             }
 
+            //if fail try to set config('runtime.locale') by $request->lang param value .../{lang}/... in routes param
+            if (is_null($locale) && !is_null($request->lang)) {
+                $locale = $request->lang;
+                $locale = Locale::isValidLocale($locale);
+            }
+
             //if fail try to set config('runtime.locale') by session value
             if (is_null($locale) && !is_null(session('runtime.locale'))) {
                 $locale = session('runtime.locale');

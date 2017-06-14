@@ -7,7 +7,7 @@ Laravel-utils is a toolbox that allow:
  - PHP tool to get browser infos
  - PHP tool to get database enum list, or get count items with a reusable mutiple where (=) clause
  - Middleware to to share config('runtime.ip') variable (base on PHP tool to get valid public IP)
- - Middleware to obtain automatically the best locale for your client and share it on your application by a config('runtime.locale') variable
+ - Middleware to obtain automatically the best locale for your client and share it on your application by a config('runtime.locale') variable. You can use {lang} for route param to force set locale
  - Middleware to obtain automatically the best currency for your client and share it on your application by a config('runtime.currency') variable
   
  
