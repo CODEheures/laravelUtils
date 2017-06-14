@@ -14,7 +14,7 @@ trait GeoUtils
         $result = [
             "ip" => $ip,
             "city" => $record->city->name,
-            "region" => $record->subdivisions[0]->name,
+            "region" => count($record->subdivisions) >= 1 ? $record->subdivisions[0]->name : '',
             "country" => $record->country->isoCode,
             "loc" => $record->location->latitude . ',' . $record->location->longitude,
             "postal" => $record->postal->code
