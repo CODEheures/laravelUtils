@@ -6,7 +6,7 @@ namespace Codeheures\LaravelUtils\Traits\Tools;
 trait Locale
 {
 
-    public static $last_fallback_locale = 'en_US';
+    public static $last_fallback_locale = 'en';
 
     /**
      * Return Array of Available Locales On server

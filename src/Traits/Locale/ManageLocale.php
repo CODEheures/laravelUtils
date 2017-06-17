@@ -13,7 +13,9 @@ trait ManageLocale {
             $primaryLanguage = \Locale::getPrimaryLanguage($locale);
         }
 
-        if (!is_null($primaryLanguage) && in_array($primaryLanguage, config('codeheuresUtils.availableLocales'))) {
+        if (!is_null($locale) && in_array($locale, config('codeheuresUtils.availableLocales'))) {
+            App::setLocale($locale);
+        } elseif (!is_null($primaryLanguage) && in_array($primaryLanguage, config('codeheuresUtils.availableLocales'))) {
             App::setLocale($primaryLanguage);
         } else {
             App::setLocale(config('app.fallback_locale'));
