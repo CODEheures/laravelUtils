@@ -2,7 +2,7 @@
   "name": "codeheures/laravel-utils",
   "description": "Utility for Laravel 5.4",
   "homepage": "http://github.com/codeheures/laravelUtils",
-  "license": "Apache2",
+  "license": "MIT",
   "authors": [
     {
       "name": "Sylvain Gagnot",
@@ -10,14 +10,21 @@
     }
   ],
   "require": {
-    "php": ">=5.4.0",
-    "illuminate/support": "~5.4",
-    "geoip2/geoip2": "~2.0",
-    "moneyphp/money": "^3.0"
+    "php": ">=7.0.0",
+    "illuminate/support": "~5.5",
+    "geoip2/geoip2": "~2.8",
+    "moneyphp/money": "^3.1"
   },
   "autoload": {
     "psr-4": {
       "Codeheures\\LaravelUtils\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Codeheures\\LaravelUtils\\LaravelUtilsServiceProvider"
+      ]
     }
   }
 }
